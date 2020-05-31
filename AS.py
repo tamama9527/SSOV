@@ -1,4 +1,5 @@
 import asyncio
+import ssl
 
 async def handle_echo(reader, writer):
 	data = await reader.read(1024)
@@ -17,7 +18,7 @@ async def handle_echo(reader, writer):
 async def main():
 	ssl_context = ssl.create_default_context(ssl.Purpose.CLIENT_AUTH)
 	ssl_context.check_hostname = False
-	ssl_context.load_cert_chain('as.crt', 'as.pem')
+	ssl_context.load_cert_chain('pycert/as.crt', 'pycert/as.pem')
 	server = await asyncio.start_server(
 		handle_echo, '127.0.0.1', 10021,ssl=ssl_context)
 

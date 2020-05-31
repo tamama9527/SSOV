@@ -1,4 +1,5 @@
 import asyncio
+import ssl
 
 
 authorization_server=('127.0.0.1',10021)
@@ -8,7 +9,7 @@ async def tcp_echo_client(host,message):
 	ip,port=host
 	ssl_context = ssl.create_default_context(ssl.Purpose.SERVER_AUTH,)
 	ssl_context.check_hostname = False
-	ssl_context.load_verify_locations('as.crt')
+	ssl_context.load_verify_locations('pycert/as.crt')
 	reader,writer=await asyncio.open_connection(ip,port,ssl=ssl_context)
 
 	print(f'Send:{message!r}')
