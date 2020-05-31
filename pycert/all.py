@@ -126,7 +126,7 @@ if __name__ == '__main__':
 		f.write(root_ca_cert.get_pubkey().as_pem(cipher=None))
 	# Generate CSR for signed Certificate
 	name = ['as','ap','vehicle']
-	for i in range(3):
+	for i in name:
 		csr_info = {}
 		csr_info['C'] = "TW"
 		csr_info['CN'] = "MyCompany-Certificate"
