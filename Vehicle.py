@@ -6,8 +6,10 @@ application_service=('127.0.0.1',10022)
 
 async def tcp_echo_client(host,message):
 	ip,port=host
-	
-	reader,writer=await asyncio.open_connection(ip,port)
+	ssl_context = ssl.create_default_context(ssl.Purpose.SERVER_AUTH,)
+	ssl_context.check_hostname = False
+	ssl_context.load_verify_locations('as.crt')
+	reader,writer=await asyncio.open_connection(ip,port,ssl=ssl_context)
 
 	print(f'Send:{message!r}')
 	writer.write(message.encode())
